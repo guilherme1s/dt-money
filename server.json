@@ -15,6 +15,14 @@
       "category": "Alimentação",
       "price": 60,
       "createdAt": "2026-02-13T23:23:40.849Z"
+    },
+    {
+      "id": 3,
+      "description": "Chocolate",
+      "type": "income",
+      "category": "Alimentação",
+      "price": 40,
+      "createdAt": "2026-02-13T23:23:40.849Z"
     }
   ]
 }

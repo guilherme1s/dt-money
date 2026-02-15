@@ -1,7 +1,8 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
+import { api } from "../lib/axios";
 
 interface Transaction {
-  id: string;
+  id: number;
   description: string;
   type: "income" | "outcome";
   price: number;
@@ -32,16 +33,15 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   // }, []);
 
   async function fetchTransactions(query?: string) {
-    const url = new URL("http://localhost:3000/transactions");
+    const response = await api.get("/transactions");
 
-    if (query) {
-      url.searchParams.append("q", query);
-    }
+    const filtered = query
+      ? response.data.filter((transaction: Transaction) =>
+          transaction.description.toLowerCase().includes(query.toLowerCase()),
+        )
+      : response.data;
 
-    const response = await fetch(url);
-    const data = await response.json();
-
-    setTransactions(data);
+    setTransactions(filtered);
   }
 
   useEffect(() => {
